@@ -18,3 +18,4 @@
 - Make landing page beautiful
 - Blog pages like tech specs.
   - or maybe not? Quick helper pages maybe have me pointing and smiling and a way of saying that something was useful.
+- SECRET_KEY_BASE
