@@ -31,6 +31,7 @@ defmodule TomBaseWeb.Router do
     live "/projects", Projects
     live "/why-two-awaits", WhyTwoAwaits
     live "/cemetery-escape", CemeteryEscape
+    live "/digital-rain", DigitalRain
   end
 
   # Other scopes may use custom stacks.
