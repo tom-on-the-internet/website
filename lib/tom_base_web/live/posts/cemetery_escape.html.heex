@@ -1,0 +1,95 @@
+<article class="post">
+  <h1>Cemetery Escape</h1>
+  <p><time datetime="2023-11-01">November 2023</time></p>
+  <p>
+    <a href="https://github.com/tom-on-the-internet/cemetery-escape">Cemetery Escape</a>
+    is the most fun terminal game I've created.
+  </p>
+  <p>
+    You run through the cemetery, avoiding ghosts and searching tombstones for the key that unlocks the next level.
+  </p>
+  <p>
+    I made a <a href="https://www.youtube.com/watch?v=yZA1JmwQwYE">YouTube video</a>
+    about the game if that's your thing.
+  </p>
+  <img
+    src="images/cemetery-escape/cemetery-escape.gif"
+    alt="All in a terminal."
+    title="All in a terminal."
+  />
+
+  <h2>First, why don't you play the game?</h2>
+  <p>
+    I'm about to walk you through the interesting aspects of creating this game. But if you don't care about the challenges of making a terminal game, I still encourage you to try it out.
+  </p>
+  <p>If you have an up-to-date version of Go, you can install the game:</p>
+  <pre><code>go install github.com/tom-on-the-internet/cemetery-escape@latest</code></pre>
+  <p>
+    If you prefer to download the binary, you can look in the
+    <a href="https://github.com/tom-on-the-internet/cemetery-escape/releases/latest">releases</a>
+    for a binary that runs on your hardware.
+  </p>
+
+  <h2>Limitations of the terminal</h2>
+  <ul>
+    <li>
+      You are limited to one character per cell. A cell can have an "A" or an "┌", but never both and never overlapping.
+    </li>
+    <li>
+      There aren't very many cells to work with. Maybe 400. Probably fewer. And the number will vary greatly depending on the user.
+    </li>
+    <li>
+      It's not possible to inspect what has been rendered. It's not like the DOM where you can query to see the current state.
+    </li>
+    <li>
+      There is no "keyup" event. You can react to a key being pressed, but you have no way of knowing if the key is being held down.
+    </li>
+    <li>The output will look different depending on the font, colorscheme, or terminal.</li>
+  </ul>
+  <p>
+    And yet, the best terminal applications make you forget you are using the terminal at all.
+  </p>
+
+  <h2>Overcoming the limitations</h2>
+  <p>
+    To overcome the fact that the UI will look different for most users, I encourage the use of a
+    <a href="https://www.nerdfonts.com/">nerd font</a>
+    so that I have access to great icons. But I also provide a fallback to basic ASCII characters.
+  </p>
+  <p>
+    Instead of limiting the game to the size of the terminal, I use a viewport and only show part of the playing area at a time. This means I could have huge maps, even if only a small area is visible at one time.
+  </p>
+  <p>
+    Because there's no "keyup" event, I have a key press start moving the player in a direction and they only stop when pressing another key. So, no more worrying about key repeat rates.
+  </p>
+  <p>
+    As for rendering, I'm using
+    <a href="https://github.com/charmbracelet/bubbletea">Bubble Tea</a>
+    which allows me to keep my state and rendering nicely separated.
+  </p>
+
+  <h2>What I'm proudest of</h2>
+  <p>
+    The game features a red ghost I call a "hunter". It uses a path-finding algorithm (<a href="https://en.wikipedia.org/wiki/A*_search_algorithm">A*</a>) to find its way around obstacles towards the player. I implemented a basic (bad!) priority queue to facilitate this. As a web developer, I don't often get to use these types of algorithms, so this was fun.
+  </p>
+  <p>
+    I'm also proud of my level editor. It allows me to take some text and generate a level. It makes designing levels much easier. Speaking of levels, I tried to have some logic to the level layouts so the player would slowly learn how the game works.
+  </p>
+  <aside class="sidenote">A basic level in the editor</aside>
+  <pre><code>"                      D                     "
+"                                            "
+"                          S          K  S   "
+"                          S             S   "
+"              H           SSSSSSSSSSSSSSS   "
+"                                            "
+"                                            "
+"                                            "
+"                      P                     "
+"                                            "</code></pre>
+  <p>
+    I'm also glad I finally got to use a <a href="https://www.calhoun.io/concatenating-and-building-strings-in-go/">string builder</a>. Again, because I'm a web developer, I usually don't run into allocations being an issue. But here, re-rendering every 10ms, too many allocations actually had performance impacts.
+  </p>
+
+  <h2>Final thoughts</h2>
+  <p>Don't make games in the terminal. It's the wrong medium!</p>
+</article>

@@ -1,0 +1,63 @@
+<article class="post">
+  <h1>Why Two Awaits?</h1>
+  <p><time datetime="2024-07-01">July 2024</time></p>
+
+  <p>You've seen these two <code>await</code> calls before.</p>
+
+  <pre><code class="language-js">let response = await fetch("/some-url")
+let myObject = await response.json()
+</code></pre>
+
+  <p>
+    Awaiting <code>fetch</code>
+    makes sense because we don't want to block the main thread while we make a network request.
+  </p>
+
+  <p>But, why do we need to <code>await</code> <code>response.json()</code>?</p>
+
+  <p>
+    Parsing JSON shouldn't take a long time. In fact, we regularly call <code>JSON.parse()</code>
+    which is a synchronous call. So, why does <code>response.json()</code>
+    return a promise?
+  </p>
+
+  <h2>What's going on?</h2>
+
+  <p>
+    From <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#concepts_and_usage">MDN's article on the Fetch API</a>:
+  </p>
+
+  <blockquote>
+    <p>
+      The fetch() method takes one mandatory argument, the path to the resource you want to fetch. It returns a Promise that resolves to the Response to that request —
+      <strong>as soon as the server responds with headers</strong>
+      — even if the server response is an HTTP error status.
+    </p>
+  </blockquote>
+
+  <p>
+    So, <strong>fetch resolves the response before the body has necessarily been completely received</strong>.
+  </p>
+
+  <p>Looking at the code from earlier:</p>
+
+  <pre><code class="language-javascript">let response = await fetch("/some-url")
+// 1. the client has received the headers
+// 2. the body is (probably) still making its way over.
+
+let myObject = await response.json()
+// 3. the client has received the body
+// 4. the client has tried to parse the body as JSON
+</code></pre>
+  <p>
+    It's useful it is to have access to the headers before the whole body arrives. Based on the status code, or one of the headers, we might decide to not read the body at all.
+  </p>
+  <p>
+    And the body arriving after the headers is actually something we're used to. This is how everything works in the browser. HTML is slowly sent over the wire, as are images, fonts, etc. I guess I was just confused by the name of the method: <code>response.json()</code>.
+  </p>
+
+  <aside>
+    I have a simple node server that demonstrates this content.
+    The related code is all <a href="https://github.com/tom-on-the-internet/fetch-demonstration">here</a>.
+  </aside>
+</article>

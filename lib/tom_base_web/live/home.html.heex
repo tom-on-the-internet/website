@@ -1,0 +1,41 @@
+<style>
+  .fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>
+<h1>Hi.</h1>
+<p>Thanks for visiting my website. I'm in the process of redoing it, again.</p>
+<p>For now, here are a few links:</p>
+<nav aria-label="Useful Links" class="space-x-2">
+  <.link navigate={~p"/about"}>about</.link>
+  <.link navigate={~p"/projects"}>projects</.link>
+  <.link href="https://github.com/tom-on-the-internet">
+    github
+  </.link>
+</nav>
+<h2 class="mt-5">Blog Posts</h2>
+<ul class="list-disc list-inside space-y-2">
+  <li>
+    <.link navigate={~p"/why-two-awaits"}>Why Two Awaits?</.link>
+    - <time datetime="2024-07-01">July 2024</time>
+  </li>
+  <li>
+    <.link navigate={~p"/cemetery-escape"}>Cemetery Escape</.link>
+    - <time datetime="2023-11-01">November 2023</time>
+  </li>
+</ul>
+
+<%= if @quote_chars != [] do %>
+  <div class={["mt-5", if(@fade_in, do: "fade-in", else: "")]}>
+    {Enum.join(@quote_chars, "")}
+  </div>
+<% end %>

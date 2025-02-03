@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+
+@layer base {
+    body {
+        @apply bg-base text-overlay2;
+    }
+
+    header {
+        @apply mb-10
+    }
+
+    h1 {
+        @apply mb-5 text-yellow text-5xl;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5 {
+        @apply mt-5 mb-5 text-yellow
+    }
+
+    p {
+        @apply my-5
+    }
+
+    a {
+        @apply text-mauve
+    }
+
+    article.post aside {
+        @apply italic text-overlay0 bg-mantle px-2 py-1 rounded;
+    }
+
+    article.post code:not(pre code) {
+        @apply text-peach bg-mantle px-1 rounded border border-surface0;
+    }
+
+    article.post pre code {
+        @apply text-text;
+    }
+
+    article.post pre {
+        @apply bg-mantle overflow-auto px-2 py-1 rounded;
+    }
+
+}
