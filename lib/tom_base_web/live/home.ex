@@ -10,7 +10,7 @@ defmodule TomBaseWeb.Home do
       |> assign(:quote_chars, [])
       |> assign(:fade_in, false)
 
-    Process.send_after(self(), :start_qotd, 5_000)
+    Process.send_after(self(), :start_qotd, 8_000)
 
     {:ok, socket}
   end
