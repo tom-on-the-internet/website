@@ -1,25 +1,45 @@
-<div class="my-8">
-  <%!-- <svg xmlns="http://www.w3.org/2000/svg" width="9em" height="9em" fill="#81c8be"> --%>
-  <%!--   <rect width="7em" height="1em" ></rect> --%>
-  <%!--   <rect y="2rem" width="8em" height="1em" ></rect> --%>
-  <%!--   <rect y="4rem" width="7em" height="1em" ></rect> --%>
-  <%!--   <rect width="1em" height="5em" ></rect> --%>
-  <%!--   <rect x="8em" width="1em" height="9em" ></rect> --%>
-  <%!--   <rect y="6rem" width="8em" height="1em" ></rect> --%>
-  <%!--   <rect y="8rem" width="8em" height="1em" ></rect> --%>
-  <%!--   <rect y="6em" width="1em" height="3em" ></rect> --%>
-  <%!-- </svg> --%>
-  <svg xmlns="http://www.w3.org/2000/svg" width="4.5em" height="4.5em" fill="#949cbb">
-    <rect width="3.5em" height="0.5em"></rect>
-    <rect y="1rem" width="4em" height="0.5em"></rect>
-    <rect y="2rem" width="3.5em" height="0.5em"></rect>
-    <rect width="0.5em" height="2.5em"></rect>
-    <rect x="4em" width="0.5em" height="4.5em"></rect>
-    <rect y="3rem" width="4em" height="0.5em"></rect>
-    <rect y="4rem" width="4em" height="0.5em"></rect>
-    <rect y="3em" width="0.5em" height="1.5em"></rect>
-  </svg>
-</div>
+<style>
+  svg {
+    transform: rotate(-10deg);
+    transform-origin: center;
+  }
+  rect {
+    fill: #737994;
+  }
+
+  @keyframes color-cycle {
+    0%, 20% { fill: #737994; }
+    30% { fill: #e5c890; }
+    40%, 100% { fill: #737994; }
+  }
+
+  .t {
+    animation: color-cycle 9s infinite;
+  }
+
+  .o {
+    animation: color-cycle 9s infinite;
+    animation-delay: 1s; 
+  }
+
+  .m {
+    animation: color-cycle 9s infinite;
+    animation-delay: 2s; 
+  }
+</style>
+
+<svg class="my-9" xmlns="http://www.w3.org/2000/svg" width="9em" height="9em">
+  <rect class="m" width="7em" height="1em"></rect>
+  <rect class="m" y="2rem" width="4em" height="1em"></rect>
+  <rect class="m" y="4rem" width="7em" height="1em"></rect>
+  <rect class="m" width="1em" height="5em"></rect>
+  <rect class="t" x="8em" width="1em" height="6em"></rect>
+  <rect class="t" x="4em" y="2rem" width="4em" height="1em" fill="purple"></rect>
+  <rect class="o" x="8em" y="6em" width="1em" height="3em"></rect>
+  <rect class="o" y="6rem" width="8em" height="1em"></rect>
+  <rect class="o" y="8rem" width="8em" height="1em"></rect>
+  <rect class="o" y="6em" width="1em" height="3em"></rect>
+</svg>
 
 <h1>Hi.</h1>
 <p>Thanks for visiting my website. I'm in the process of redoing it, again.</p>
