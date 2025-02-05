@@ -63,16 +63,19 @@
 </svg>
 
 <h1>Hi.</h1>
-<p>Thanks for visiting my website. I'm in the process of redoing it, again.</p>
-<p>For now, here are a few links:</p>
+<p>My name is Tom Steven and this is my website.</p>
+<h2>Links</h2>
 <nav aria-label="Useful Links" class="space-x-2">
-  <.link navigate={~p"/about"}>about</.link>
-  <.link navigate={~p"/projects"}>projects</.link>
-  <.link href="https://github.com/tom-on-the-internet">
-    github
-  </.link>
+  <ul class="list-disc list-inside space-y-2">
+    <li>
+      <.link navigate={~p"/about"}>about</.link>
+    </li>
+    <li>
+      <.link navigate={~p"/projects"}>projects</.link>
+    </li>
+  </ul>
 </nav>
-<h2 class="mt-5">Blog Posts</h2>
+<h2>Blog Posts</h2>
 <ul class="list-disc list-inside space-y-2">
   <li>
     <.link navigate={~p"/why-two-awaits"}>Why Two Awaits?</.link>
