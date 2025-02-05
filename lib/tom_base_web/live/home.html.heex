@@ -1,10 +1,30 @@
+<!-- Interested in the logo? -->
+<!-- It's an svg. And svg can be controlled with css. -->
 <style>
   svg {
     transform: rotate(-10deg);
     transform-origin: center;
+    animation: turn 15s infinite;
+    animation-delay: 5s; 
   }
+
   rect {
     fill: #414559;
+  }
+  @keyframes turn{
+  0%{ transform: rotate(-10deg); }
+
+  3%{ transform: rotate(-90deg); }
+  7%{ transform: rotate(-90deg); }
+
+  10%{ transform: rotate(-180deg); }
+  14%{ transform: rotate(-180deg); }
+
+  17%{ transform: rotate(-270deg); }
+  21%{ transform: rotate(-270deg); }
+
+  24%{ transform: rotate(-370deg); }
+  100%{ transform: rotate(-370deg); }
   }
 
   @keyframes color-cycle {
