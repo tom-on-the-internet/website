@@ -8,7 +8,7 @@
 
 @layer base {
     body {
-        @apply bg-base text-overlay2;
+        @apply bg-base text-overlay2 mb-20;
     }
 
     header {
