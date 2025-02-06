@@ -1,0 +1,84 @@
+<article>
+  <canvas id="aquariumCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById('aquariumCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas dimensions to fill the window
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Fish properties
+    const fishCount = 10;
+    const fish = [];
+
+    for (let i = 0; i < fishCount; i++) {
+      fish.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speedX: Math.random() * 2 - 1, // Random speed between -1 and 1
+        speedY: Math.random() * 0.5 - 0.25, // Random speed, biased downwards
+        size: Math.random() * 20 + 30, // Random size
+        angle: Math.random() * 360, // Random initial angle
+        color:`hsl(${Math.random()*360}, 70%, 50%)`
+      });
+    }
+
+    function drawFish(f) {
+        ctx.save(); // Save current context state
+        ctx.translate(f.x, f.y); // Move origin to fish's position
+        ctx.rotate(f.angle * Math.PI / 180); // Rotate context
+        ctx.beginPath();
+        ctx.moveTo(-f.size, 0);
+        ctx.quadraticCurveTo(-f.size/2, -f.size, 0, 0);
+        ctx.quadraticCurveTo(-f.size/2, f.size, -f.size, 0);
+        ctx.fillStyle = f.color ;
+        ctx.fill();
+        ctx.closePath();
+        ctx.restore(); // Restore previous context state
+    }
+
+    function updateFish(f) {
+        f.x += f.speedX;
+        f.y += f.speedY;
+
+        // Basic boundary checking (fish reappear on the opposite side)
+        if (f.x > canvas.width + f.size) f.x = -f.size;
+        if (f.x < -f.size) f.x = canvas.width + f.size;
+        if (f.y > canvas.height + f.size) f.y = -f.size;
+        if (f.y < -f.size) f.y = canvas.height + f.size;
+
+        // Slight random angle change for more natural movement
+        f.angle += Math.random() * 10 - 5;
+    }
+
+    function drawBackground() {
+      ctx.fillStyle = 'darkblue'; // Light blue background
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+      drawBackground();
+
+      for (let i = 0; i < fishCount; i++) {
+        updateFish(fish[i]);
+        drawFish(fish[i]);
+      }
+
+      requestAnimationFrame(animate); // Request the next animation frame
+    }
+
+    // Resize the canvas when the window is resized
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    setTimeout(()=>{
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    animate(); // Start the animation loop
+    },100)
+  </script>
+</article>

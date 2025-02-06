@@ -29,6 +29,8 @@ defmodule TomBaseWeb.Router do
     live "/", Home
     live "/about", About
     live "/projects", Projects
+    live "/guestquarium", Guestquarium
+    # blog
     live "/why-two-awaits", WhyTwoAwaits
     live "/cemetery-escape", CemeteryEscape
     live "/digital-rain", DigitalRain
