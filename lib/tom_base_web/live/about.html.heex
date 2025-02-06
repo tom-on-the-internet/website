@@ -1,117 +1,97 @@
 <article>
   <h1>About</h1>
-  <%!-- TODO: Fix the gap --%>
+  <h2>At a glance</h2>
   <section>
-    <dl class="divide-y divide-yellow">
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Name</dt>
-        <dd class="col-span-3">Thomas Steven</dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Email</dt>
-        <dd class="col-span-3">tom@tomontheinternet.com</dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Location</dt>
-        <dd class="col-span-3">
-          <p class="my-0">St. Catharines, Ontario, Canada</p>
-          <p class="my-0">About an hour from Toronto</p>
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Links</dt>
-        <dd class="col-span-3">
-          <p class="mt-0 mb-2">
-            <.link href="https://github.com/tom-on-the-internet">GitHub</.link>
-          </p>
-          <p class="mt-0 mb-2">
-            <.link href="https://www.youtube.com/@tomontheinternet">YouTube</.link>
-          </p>
-          <p class="my-0">
-            <.link href="https://www.linkedin.com/in/thomaspatricksteven/">LinkedIn</.link>
-          </p>
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Family</dt>
-        <dd class="col-span-3">
-          Yes
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Occupation</dt>
-        <dd class="col-span-3">
-          <p class="my-0">Software Developer</p>
-          <p class="my-0">Full stack</p>
-          <p class="my-0">Mostly web</p>
-          <p class="my-0">Since 2017</p>
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Nationality</dt>
-        <dd class="col-span-3">
-          Canadian
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Education</dt>
-        <dd class="col-span-3">
-          <p class="my-0">Master of Education (MEd)</p>
-          <p class="my-0 text-overlay0">University of Missouri</p>
-          <p class="mb-0">Bachelor of English Literature</p>
-          <p class="my-0 text-overlay0">Laurentian University</p>
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Text Editor</dt>
-        <dd class="col-span-3">
-          Neovim
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Font</dt>
-        <dd class="col-span-3">
-          IBM Plex Mono
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Colorscheme</dt>
-        <dd class="col-span-3">
-          <p class="my-0">Catppuccin Frappé</p>
-          <p class="my-0">This site uses this palette.</p>
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Learning</dt>
-        <dd class="col-span-3">
-          <p class="my-0">Elixir and Phoenix</p>
-          <p class="my-0">This site is a Phoenix site.</p>
-        </dd>
-      </div>
-      <div class="py-3 grid grid-cols-4 gap-20">
-        <dt>Spoken Languages</dt>
-        <dd class="col-span-3">
-          <p class="my-0">English &nbsp;<.icon name="hero-star-solid" class="text-yellow" />
-            <.icon name="hero-star-solid" class="text-yellow" />
-            <.icon name="hero-star-solid" class="text-yellow" />
-            <.icon name="hero-star-solid" class="text-yellow" />
-            <.icon name="hero-star-solid" class="text-yellow" /></p>
-          <p class="my-0">Korean &nbsp;&nbsp;<.icon name="hero-star-solid" class="text-yellow" />
-            <.icon name="hero-star-solid" class="text-yellow" />
-            <.icon name="hero-star-solid" />
-            <.icon name="hero-star-solid" />
-            <.icon name="hero-star-solid" /></p>
-          <p class="my-0">French &nbsp;&nbsp;<.icon name="hero-star-solid" class="text-yellow" />
-            <.icon name="hero-star-solid" class="text-yellow" />
-            <.icon name="hero-star-solid" />
-            <.icon name="hero-star-solid" />
-            <.icon name="hero-star-solid" /></p>
-        </dd>
-      </div>
+    <dl class="grid grid-cols-[auto_1fr] gap-y-3 gap-x-4">
+      <dt>Name</dt>
+      <dd>Thomas Steven</dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Email</dt>
+      <dd>tom@tomontheinternet.com</dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Location</dt>
+      <dd>
+        <p class="my-0">St. Catharines, Ontario, Canada</p>
+        <p class="my-0">About an hour from Toronto</p>
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Links</dt>
+      <dd>
+        <p class="mt-0 mb-2">
+          <.link href="https://github.com/tom-on-the-internet">GitHub</.link>
+        </p>
+        <p class="mt-0 mb-2">
+          <.link href="https://www.youtube.com/@tomontheinternet">YouTube</.link>
+        </p>
+        <p class="my-0">
+          <.link href="https://www.linkedin.com/in/thomaspatricksteven/">LinkedIn</.link>
+        </p>
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Family</dt>
+      <dd>
+        Yes
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Occupation</dt>
+      <dd>
+        <p class="my-0">Software Developer</p>
+        <p class="my-0">Full stack</p>
+        <p class="my-0">Mostly web</p>
+        <p class="my-0">Since 2017</p>
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Nationality</dt>
+      <dd>
+        Canadian
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Education</dt>
+      <dd>
+        <p class="my-0">Master of Education (MEd)</p>
+        <p class="my-0 text-overlay0">University of Missouri</p>
+        <p class="mb-0">Bachelor of English Literature</p>
+        <p class="my-0 text-overlay0">Laurentian University</p>
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Text Editor</dt>
+      <dd>
+        Neovim
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Font</dt>
+      <dd>
+        IBM Plex Mono
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Colorscheme</dt>
+      <dd>
+        <p class="my-0">Catppuccin Frappé</p>
+        <p class="my-0">This site uses this palette.</p>
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Learning</dt>
+      <dd>
+        <p class="my-0">Elixir and Phoenix</p>
+        <p class="my-0">This site is a Phoenix site.</p>
+      </dd>
+      <hr class="col-span-2 border-yellow" />
+      <dt>Spoken Languages</dt>
+      <dd>
+        <p class="my-0">English &nbsp;<.icon name="hero-star-solid" class="text-yellow" />
+          <.icon name="hero-star-solid" class="text-yellow" />
+          <.icon name="hero-star-solid" class="text-yellow" /></p>
+        <p class="my-0">Korean &nbsp;&nbsp;<.icon name="hero-star-solid" class="text-yellow" />
+          <.icon name="hero-star-solid" />
+          <.icon name="hero-star-solid" /></p>
+        <p class="my-0">French &nbsp;&nbsp;<.icon name="hero-star-solid" class="text-yellow" />
+          <.icon name="hero-star-solid" />
+          <.icon name="hero-star-solid" /></p>
+      </dd>
     </dl>
   </section>
 
-  <p>Some technologies I know:</p>
+  <h2>Technologies I know</h2>
   <ul class="list-disc list-inside">
     <li>AWS</li>
     <li>Bash</li>
