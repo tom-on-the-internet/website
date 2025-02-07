@@ -1,10 +1,9 @@
 defmodule TomBaseWeb.About do
+  @moduledoc false
   use TomBaseWeb, :live_view
 
   def mount(_params, _session, socket) do
-    socket =
-      socket
-      |> assign(:page_title, "About")
+    socket = assign(socket, :page_title, "About")
 
     {:ok, socket}
   end
