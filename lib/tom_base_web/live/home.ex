@@ -1,4 +1,5 @@
 defmodule TomBaseWeb.Home do
+  @moduledoc false
   use TomBaseWeb, :live_view
 
   def mount(_params, _session, socket) do
