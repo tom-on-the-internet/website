@@ -7,7 +7,7 @@ defmodule TomBase.Repo.Migrations.CreateFish do
       add :message, :string
       add :link, :string
 
-      timestamps(type: :utc_datetime)
+      timestamps(type: :utc_datetime_usec)
     end
   end
 end

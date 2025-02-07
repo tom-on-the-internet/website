@@ -1,5 +1,7 @@
 defmodule TomBase.Fish do
-  use Ecto.Schema
+  @moduledoc false
+  use TomBase.Schema
+
   import Ecto.Changeset
 
   schema "fish" do
@@ -7,13 +9,13 @@ defmodule TomBase.Fish do
     field :name, :string
     field :link, :string
 
-    timestamps(type: :utc_datetime)
+    timestamps(type: :utc_datetime_usec)
   end
 
   @doc false
   def changeset(fish, attrs) do
     fish
     |> cast(attrs, [:name, :message, :link])
-    |> validate_required([:name, :link])
+    |> validate_required([:name, :message, :link])
   end
 end
