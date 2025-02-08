@@ -5,13 +5,13 @@ kill_signal = 'SIGTERM'
 [build]
 
 [env]
-DATABASE_PATH = '/mnt/name/name.db'
+DATABASE_PATH = '/mnt/dbvol/tom_base.db'
 PHX_HOST = 'tomontheinternet.com'
 PORT = '8080'
 
 [[mounts]]
-source = 'name'
-destination = '/mnt/name'
+source = 'dbvol'
+destination = '/mnt/dbvol'
 
 [http_service]
 internal_port = 8080
