@@ -7,12 +7,12 @@ defmodule TomBase.Application do
 
   @impl true
   def start(_type, _args) do
+    TomBase.Release.migrate()
+
     children = [
       TomBaseWeb.Telemetry,
       TomBase.Repo,
-      {Ecto.Migrator,
-        repos: Application.fetch_env!(:tom_base, :ecto_repos),
-        skip: skip_migrations?()},
+      {Ecto.Migrator, repos: Application.fetch_env!(:tom_base, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:tom_base, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: TomBase.PubSub},
       # Start the Finch HTTP client for sending emails
@@ -37,7 +37,7 @@ defmodule TomBase.Application do
     :ok
   end
 
-  defp skip_migrations?() do
+  defp skip_migrations? do
     # By default, sqlite migrations are run when using a release
     System.get_env("RELEASE_NAME") != nil
   end
