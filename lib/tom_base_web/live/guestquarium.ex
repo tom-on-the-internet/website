@@ -51,7 +51,8 @@ defmodule TomBaseWeb.Guestquarium do
       id: random_string(10),
       x: :rand.uniform(@width),
       y: :rand.uniform(@height),
-      speed: :rand.uniform(@speed)
+      speed: :rand.uniform(@speed),
+      size: random_size()
     }
   end
 
@@ -60,5 +61,11 @@ defmodule TomBaseWeb.Guestquarium do
     |> :crypto.strong_rand_bytes()
     |> Base.url_encode64(padding: false)
     |> binary_part(0, length)
+  end
+
+  defp random_size do
+    sizes = ["small", "medium", "large"]
+    index = :rand.uniform(3) - 1
+    Enum.at(sizes, index)
   end
 end

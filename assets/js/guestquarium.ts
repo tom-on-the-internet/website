@@ -14,6 +14,10 @@ interface Fish {
     goalX: number;
     goalY: number;
     speed: number;
+    size:
+    | "small"
+    | "medium"
+    | "large";
 }
 
 interface ServerFish {
@@ -21,6 +25,10 @@ interface ServerFish {
     x: number;
     y: number;
     speed: number;
+    size:
+    | "small"
+    | "medium"
+    | "large";
 }
 
 let canvas = document.querySelector("canvas")!;
@@ -64,14 +72,40 @@ function animateFish() {
             fish.y += ratio * dy;
         }
 
-        drawFish(fish.x, fish.y);
+        drawFish(fish.x, fish.y, fish.size);
     });
 }
 
-function drawFish(x: number, y: number) {
-    ctx.fillStyle = "blue";
+function drawFish(x: number, y: number, size: "small" | "medium" | "large") {
+    const sizeMap = {
+        small: { width: 10, height: 5 },
+        medium: { width: 20, height: 10 },
+        large: { width: 30, height: 15 },
+    };
+
+    const { width, height } = sizeMap[size] || { width: 0, height: 0 };
+
+    // Fish body (ellipse)
     ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI * 2);
+    ctx.ellipse(x, y, width, height, 0, 0, Math.PI * 2);
+    ctx.fillStyle = "lightblue"; // You can change the color here
+    ctx.fill();
+    ctx.stroke();
+
+    // Fish tail (triangle)
+    ctx.beginPath();
+    ctx.moveTo(x - width, y); // Left side of the tail
+    ctx.lineTo(x - width - width, y - height); // Top point of the tail
+    ctx.lineTo(x - width - width, y + height); // Bottom point of the tail
+    ctx.closePath();
+    ctx.fillStyle = "lightblue"; // Tail color, can be different
+    ctx.fill();
+    ctx.stroke();
+
+    // Fish eye (circle)
+    ctx.beginPath();
+    ctx.arc(x + width / 2, y - height / 3, height / 3, 0, Math.PI * 2); // Eye position and size
+    ctx.fillStyle = "black"; // Eye color
     ctx.fill();
 }
 
