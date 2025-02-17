@@ -8,7 +8,7 @@
 
 @layer base {
     body {
-        @apply bg-base text-overlay2;
+        @apply bg-background text-text;
     }
 
     header {
@@ -16,14 +16,22 @@
     }
 
     h1 {
-        @apply mb-5 text-yellow text-5xl;
+        @apply text-5xl;
     }
 
     h2,
     h3,
     h4,
     h5 {
-        @apply mt-5 mb-5 text-yellow
+        @apply mt-5
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        @apply mb-5 text-fg
     }
 
     p {
@@ -31,23 +39,23 @@
     }
 
     a {
-        @apply text-mauve
+        @apply text-teal
     }
 
     article.post aside {
-        @apply italic text-overlay0 bg-mantle px-2 py-1 rounded;
+        @apply italic bg-bg_highlight px-2 py-1 rounded border border-terminal_black;
     }
 
     article.post code:not(pre code) {
-        @apply text-peach bg-mantle px-1 rounded border border-surface0;
+        @apply text-yellow bg-bg_highlight px-1 rounded border border-terminal_black;
     }
 
     article.post pre code {
-        @apply text-text;
+        @apply text-blue;
     }
 
     article.post pre {
-        @apply bg-mantle overflow-auto px-2 py-1 rounded;
+        @apply bg-bg_highlight overflow-auto px-2 py-1 rounded;
     }
 
 }
