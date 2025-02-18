@@ -15,9 +15,9 @@ interface Fish {
     goalY: number;
     speed: number;
     size:
-        | "small"
-        | "medium"
-        | "large";
+    | "small"
+    | "medium"
+    | "large";
 }
 
 interface FishUpdate {
@@ -26,9 +26,9 @@ interface FishUpdate {
     y: number;
     speed: number;
     size:
-        | "small"
-        | "medium"
-        | "large";
+    | "small"
+    | "medium"
+    | "large";
 }
 
 let canvas = document.querySelector("canvas")!;
@@ -69,9 +69,9 @@ function animateFish() {
         let dx = fish.goalX - fish.x;
         let distance = Math.sqrt(dx * dx + dy * dy);
 
-        let ratio = fish.speed / distance;
+        let ratio = fish.speed * 0.5 / distance;
         if (ratio < 1) {
-            let ratio = fish.speed / distance;
+            let ratio = fish.speed * 0.5 / distance;
             fish.x += ratio * dx;
             fish.y += ratio * dy;
         }
@@ -92,7 +92,15 @@ function drawFish(x: number, y: number, size: "small" | "medium" | "large") {
     // Fish body (ellipse)
     ctx.beginPath();
     ctx.ellipse(x, y, width, height, 0, 0, Math.PI * 2);
-    ctx.fillStyle = "lightblue"; // You can change the color here
+    const gradient = ctx.createLinearGradient(
+        x - width,
+        y - height,
+        x + width,
+        y + height,
+    );
+    gradient.addColorStop(0, "#00bcd4"); // Light cyan
+    gradient.addColorStop(1, "#309688"); // Dark teal
+    ctx.fillStyle = gradient;
     ctx.fill();
     ctx.stroke();
 
@@ -102,15 +110,21 @@ function drawFish(x: number, y: number, size: "small" | "medium" | "large") {
     ctx.lineTo(x - width - width, y - height); // Top point of the tail
     ctx.lineTo(x - width - width, y + height); // Bottom point of the tail
     ctx.closePath();
-    ctx.fillStyle = "lightblue"; // Tail color, can be different
+    ctx.fillStyle = "#e30"; // Bright coral
     ctx.fill();
     ctx.stroke();
 
     // Fish eye (circle)
     ctx.beginPath();
     ctx.arc(x + width / 2, y - height / 3, height / 3, 0, Math.PI * 2); // Eye position and size
-    ctx.fillStyle = "black"; // Eye color
+    ctx.fillStyle = "white"; // White of the eye
+    ctx.fill();
+
+    // Eye pupil (small black circle)
+    ctx.beginPath();
+    ctx.arc(x + width / 2, y - height / 3, height / 6, 0, Math.PI * 2); // Pupil size
+    ctx.fillStyle = "black"; // Pupil color
     ctx.fill();
 }
 
-setInterval(animateFish, 100);
+setInterval(animateFish, 50);

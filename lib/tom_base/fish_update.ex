@@ -22,7 +22,7 @@ defmodule TomBase.FishUpdate do
   end
 
   def handle_info(:generate, state) do
-    if :rand.uniform(10) == 1 and length(state.fish) > 0 do
+    if :rand.uniform(10) >= 8 and length(state.fish) > 0 do
       fish = Enum.random(state.fish)
 
       fish_update = %{
