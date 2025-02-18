@@ -2,9 +2,9 @@
 // and how far the fish can move in a second (speed).
 // The client tries to move the fish.
 
-interface MyEvent {
+interface TickEvent {
     type: "tick";
-    detail: { fish: Array<ServerFish> };
+    detail: { fish_update: FishUpdate };
 }
 
 interface Fish {
@@ -15,20 +15,20 @@ interface Fish {
     goalY: number;
     speed: number;
     size:
-    | "small"
-    | "medium"
-    | "large";
+        | "small"
+        | "medium"
+        | "large";
 }
 
-interface ServerFish {
+interface FishUpdate {
     id: string;
     x: number;
     y: number;
     speed: number;
     size:
-    | "small"
-    | "medium"
-    | "large";
+        | "small"
+        | "medium"
+        | "large";
 }
 
 let canvas = document.querySelector("canvas")!;
@@ -37,24 +37,28 @@ let ctx = canvas.getContext("2d")!;
 let fishMap: Record<string, Fish> = {};
 let lastTickTime = performance.now();
 
-window.addEventListener("phx:tick", (e: MyEvent) => {
-    e.detail.fish.forEach((serverFish) => {
-        if (!fishMap[serverFish.id]) {
-            let randomX = Math.random() * canvas.width;
-            let randomY = Math.random() * canvas.height;
+window.addEventListener("phx:tick", (e: TickEvent) => {
+    let fishUpdate = e.detail.fish_update;
 
-            fishMap[serverFish.id] = {
-                ...serverFish,
-                x: randomX,
-                y: randomY,
-                goalX: serverFish.x,
-                goalY: serverFish.y,
-            };
-        } else {
-            fishMap[serverFish.id].goalX = serverFish.x;
-            fishMap[serverFish.id].goalY = serverFish.y;
-        }
-    });
+    if (!fishMap[fishUpdate.id]) {
+        let randomX = Math.random() * canvas.width;
+        let randomY = Math.random() * canvas.height;
+
+        fishMap[fishUpdate.id] = {
+            id: fishUpdate.id,
+            x: randomX,
+            y: randomY,
+            goalX: fishUpdate.x,
+            goalY: fishUpdate.y,
+            speed: fishUpdate.speed,
+            size: fishUpdate.size,
+        };
+        return;
+    }
+
+    fishMap[fishUpdate.id].goalX = fishUpdate.x;
+    fishMap[fishUpdate.id].goalY = fishUpdate.y;
+    fishMap[fishUpdate.id].speed = fishUpdate.speed;
 });
 
 function animateFish() {
