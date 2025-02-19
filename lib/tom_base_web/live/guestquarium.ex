@@ -4,16 +4,31 @@ defmodule TomBaseWeb.Guestquarium do
 
   alias Phoenix.PubSub
 
-  @topic "fish_update"
-
   def mount(_params, _session, socket) do
-    socket = assign(socket, page_title: "Guestquarium")
-    PubSub.subscribe(TomBase.PubSub, @topic)
+    PubSub.subscribe(TomBase.PubSub, TomBase.Guestquarium.topic())
+
+    socket =
+      socket
+      |> assign(page_title: "Guestquarium")
+      |> assign(intial_fish_loaded: false)
 
     {:ok, socket, layout: {TomBaseWeb.Layouts, :minimal}}
   end
 
   def handle_info({:fish_update, fish_update}, socket) do
-    {:noreply, push_event(socket, "tick", %{fish_update: fish_update})}
+    {:noreply, push_event(socket, :fish_update, fish_update)}
+  end
+
+  def handle_info({:fish_survey, fish}, socket) do
+    if socket.assigns.intial_fish_loaded do
+      {:noreply, socket}
+    else
+      socket =
+        socket
+        |> assign(intial_fish_loaded: true)
+        |> push_event(:fish_survey, %{fish: fish})
+
+      {:noreply, socket}
+    end
   end
 end

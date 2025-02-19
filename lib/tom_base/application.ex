@@ -12,7 +12,7 @@ defmodule TomBase.Application do
     children = [
       TomBaseWeb.Telemetry,
       TomBase.Repo,
-      TomBase.FishUpdate,
+      TomBase.Guestquarium,
       {Ecto.Migrator, repos: Application.fetch_env!(:tom_base, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:tom_base, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: TomBase.PubSub},

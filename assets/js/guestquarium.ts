@@ -2,29 +2,24 @@
 // and how far the fish can move in a second (speed).
 // The client tries to move the fish.
 
-interface TickEvent {
-    type: "tick";
-    detail: { fish_update: FishUpdate };
+interface FishUpdateEvent {
+    type: "fish_update";
+    detail: Fish;
+}
+
+interface FishSurveyEvent {
+    type: "fish_survey";
+    detail: { fish: Array<Fish> };
 }
 
 interface Fish {
     id: string;
     x: number;
     y: number;
-    goalX: number;
-    goalY: number;
+    goalX: number | undefined;
+    goalY: number | undefined;
     speed: number;
-    size:
-    | "small"
-    | "medium"
-    | "large";
-}
-
-interface FishUpdate {
-    id: string;
-    x: number;
-    y: number;
-    speed: number;
+    direction: "left" | "right";
     size:
     | "small"
     | "medium"
@@ -37,36 +32,53 @@ let ctx = canvas.getContext("2d")!;
 let fishMap: Record<string, Fish> = {};
 let lastTickTime = performance.now();
 
-window.addEventListener("phx:tick", (e: TickEvent) => {
-    let fishUpdate = e.detail.fish_update;
+// called when a fish wants to go somewhere new
+window.addEventListener("phx:fish_update", (e: FishUpdateEvent) => {
+    let fishUpdate = e.detail;
 
     if (!fishMap[fishUpdate.id]) {
-        let randomX = Math.random() * canvas.width;
-        let randomY = Math.random() * canvas.height;
-
-        fishMap[fishUpdate.id] = {
-            id: fishUpdate.id,
-            x: randomX,
-            y: randomY,
-            goalX: fishUpdate.x,
-            goalY: fishUpdate.y,
-            speed: fishUpdate.speed,
-            size: fishUpdate.size,
-        };
         return;
     }
+    let fish = fishMap[fishUpdate.id];
 
-    fishMap[fishUpdate.id].goalX = fishUpdate.x;
-    fishMap[fishUpdate.id].goalY = fishUpdate.y;
-    fishMap[fishUpdate.id].speed = fishUpdate.speed;
+    fish.goalX = fishUpdate.x;
+    fish.goalY = fishUpdate.y;
+    fish.speed = fishUpdate.speed;
+
+    if (fish.goalX > fish.x) {
+        fish.direction = "left";
+    } else {
+        fish.direction = "right";
+    }
+});
+
+// called to load all the fish
+// we only expect this once
+window.addEventListener("phx:fish_survey", (e: FishSurveyEvent) => {
+    let fish = e.detail.fish;
+    fish.map((fish): Fish => {
+        fish.goalX = fish.x;
+        fish.goalY = fish.y;
+        let random = Math.floor(Math.random() * 10);
+        let size = "small";
+        if (random > 5) size = "medium";
+        if (random > 8) size = "large";
+        fish.size = size as "small" | "medium" | "large";
+        fish.size = "medium"; // for now
+        fish.direction = "left";
+
+        return fish;
+    }).forEach((fish) => {
+        fishMap[fish.id] = fish;
+    });
 });
 
 function animateFish() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     Object.values(fishMap).forEach((fish) => {
-        let dy = fish.goalY - fish.y;
-        let dx = fish.goalX - fish.x;
+        let dy = (fish.goalY ?? 0) - fish.y;
+        let dx = (fish.goalX ?? 0) - fish.x;
         let distance = Math.sqrt(dx * dx + dy * dy);
 
         let ratio = fish.speed * 0.5 / distance;
@@ -76,11 +88,16 @@ function animateFish() {
             fish.y += ratio * dy;
         }
 
-        drawFish(fish.x, fish.y, fish.size);
+        drawFish(fish.x, fish.y, fish.size, fish.direction);
     });
 }
 
-function drawFish(x: number, y: number, size: "small" | "medium" | "large") {
+function drawFish(
+    x: number,
+    y: number,
+    size: "small" | "medium" | "large",
+    direction: "left" | "right",
+) {
     const sizeMap = {
         small: { width: 10, height: 5 },
         medium: { width: 20, height: 10 },
@@ -104,11 +121,19 @@ function drawFish(x: number, y: number, size: "small" | "medium" | "large") {
     ctx.fill();
     ctx.stroke();
 
-    // Fish tail (triangle)
+    // Fish tail (triangle) depending on direction
     ctx.beginPath();
-    ctx.moveTo(x - width, y); // Left side of the tail
-    ctx.lineTo(x - width - width, y - height); // Top point of the tail
-    ctx.lineTo(x - width - width, y + height); // Bottom point of the tail
+    if (direction === "left") {
+        // Left-facing tail (point to the left)
+        ctx.moveTo(x - width, y); // Left side of the tail
+        ctx.lineTo(x - width - width, y - height); // Top point of the tail
+        ctx.lineTo(x - width - width, y + height); // Bottom point of the tail
+    } else {
+        // Right-facing tail (point to the right)
+        ctx.moveTo(x + width, y); // Right side of the tail
+        ctx.lineTo(x + width + width, y - height); // Top point of the tail
+        ctx.lineTo(x + width + width, y + height); // Bottom point of the tail
+    }
     ctx.closePath();
     ctx.fillStyle = "#e30"; // Bright coral
     ctx.fill();
@@ -116,13 +141,15 @@ function drawFish(x: number, y: number, size: "small" | "medium" | "large") {
 
     // Fish eye (circle)
     ctx.beginPath();
-    ctx.arc(x + width / 2, y - height / 3, height / 3, 0, Math.PI * 2); // Eye position and size
+    const eyeX = direction === "right" ? x - width / 2 : x + width / 2; // Eye position based on direction
+    ctx.arc(eyeX, y - height / 3, height / 3, 0, Math.PI * 2); // Eye position and size
     ctx.fillStyle = "white"; // White of the eye
     ctx.fill();
 
     // Eye pupil (small black circle)
     ctx.beginPath();
-    ctx.arc(x + width / 2, y - height / 3, height / 6, 0, Math.PI * 2); // Pupil size
+    const pupilX = direction === "right" ? x - width / 2 : x + width / 2; // Pupil position based on direction
+    ctx.arc(pupilX, y - height / 3, height / 6, 0, Math.PI * 2); // Pupil size
     ctx.fillStyle = "black"; // Pupil color
     ctx.fill();
 }
