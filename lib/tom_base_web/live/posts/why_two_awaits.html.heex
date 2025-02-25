@@ -4,9 +4,11 @@
 
   <p>You've seen these two <code>await</code> calls before.</p>
 
-  <pre><code class="language-js">let response = await fetch("/some-url")
+  <div class="pb-10">
+    <pre><code class="language-js">let response = await fetch("/some-url")
 let myObject = await response.json()
 </code></pre>
+  </div>
 
   <p>
     Awaiting <code>fetch</code>
@@ -41,7 +43,8 @@ let myObject = await response.json()
 
   <p>Looking at the code from earlier:</p>
 
-  <pre><code class="language-javascript">let response = await fetch("/some-url")
+  <div class="pb-10">
+    <pre><code class="language-javascript">let response = await fetch("/some-url")
 // 1. the client has received the headers
 // 2. the body is (probably) still making its way over.
 
@@ -49,6 +52,7 @@ let myObject = await response.json()
 // 3. the client has received the body
 // 4. the client has tried to parse the body as JSON
 </code></pre>
+  </div>
   <p>
     It's useful it is to have access to the headers before the whole body arrives. Based on the status code, or one of the headers, we might decide to not read the body at all.
   </p>

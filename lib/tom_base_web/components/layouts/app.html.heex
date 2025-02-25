@@ -1,13 +1,68 @@
-<div class="container mx-auto mt-4 max-w-prose p-3 mb-20">
-  <header>
-    <.link navigate={~p"/"}>Tom on the Internet</.link>
-  </header>
+<style>
+  div.main-content {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  background: #222436;
+  }
+  footer {
+  min-height: 100vh;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background: #1e2030;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40vw; 
+  color: #222436;
+  text-align: center;
+  padding: 0 10px;
+  white-space: nowrap;
+  }
+  .letter {
+  animation: lightUp 20s ease-in-out infinite;
+  }
+  .letter:nth-child(1) {
+  animation-delay: 0s;
+  }
+  .letter:nth-child(2) {
+  animation-delay: 2s;
+  }
+  .letter:nth-child(3) {
+  animation-delay: 4s;
+  }
+  @keyframes lightUp {
+  0% {
+  color: #222436;
+  }
+  5% {
+  color: #4fd6be;
+  }
+  10% {
+  color: #222436;
+  }
+  100% {
+  color: #222436;
+  }
+  }
+</style>
 
-  <div>
-    <.flash_group flash={@flash} />
+<div class="main-content border-b border-terminal_black">
+  <div class="container mx-auto mt-4 max-w-prose p-3 pb-40">
+    <header>
+      <.link navigate={~p"/"}>Tom on the Internet</.link>
+    </header>
+    <div>
+      <.flash_group flash={@flash} />
+    </div>
+    <main>
+      {@inner_content}
+    </main>
   </div>
-
-  <main>
-    {@inner_content}
-  </main>
 </div>
+<footer>
+  <span class="letter">T</span>
+  <span class="letter">0</span>
+  <span class="letter">M</span>
+</footer>

@@ -27,7 +27,7 @@ module.exports = {
                 purple: "#fca7ea",
                 teal: "#4fd6be",
                 terminal_black: "#444a73",
-                text: "#949cbb",
+                text: "#c8d3f5",
                 yellow: "#ffc777",
                 // these are not in use
                 // bg = "#222436",

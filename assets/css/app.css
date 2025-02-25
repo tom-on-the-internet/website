@@ -7,6 +7,17 @@
 /* This file is for your main application CSS */
 
 @layer base {
+    html {
+        font-size: 16px;
+    }
+
+    @media (min-width: 640px) {
+        html {
+            font-size: 18px;
+        }
+    }
+
+
     body {
         @apply bg-background text-text;
     }
@@ -16,14 +27,18 @@
     }
 
     h1 {
-        @apply text-5xl;
+        @apply text-5xl text-yellow;
+    }
+
+    h2 {
+        @apply text-lg;
     }
 
     h2,
     h3,
     h4,
     h5 {
-        @apply mt-5
+        @apply mt-10 text-yellow
     }
 
     h1,
@@ -31,11 +46,11 @@
     h3,
     h4,
     h5 {
-        @apply mb-5 text-fg
+        @apply mb-5
     }
 
     p {
-        @apply my-5
+        @apply mb-10
     }
 
     a {
@@ -47,7 +62,7 @@
     }
 
     article.post code:not(pre code) {
-        @apply text-yellow bg-bg_highlight px-1 rounded border border-terminal_black;
+        @apply text-orange bg-bg_highlight px-1 rounded border border-terminal_black;
     }
 
     article.post pre code {
