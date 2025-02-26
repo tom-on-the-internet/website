@@ -47,6 +47,16 @@
     animation: color-cycle 15s infinite;
     animation-delay: 7s;
   }
+
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 </style>
 
 <svg class="my-14 mx-4" xmlns="http://www.w3.org/2000/svg" width="9em" height="9em">
@@ -79,6 +89,10 @@
 </nav>
 <h2>Blog Posts</h2>
 <ul class="list-disc list-inside space-y-2">
+  <%!-- <li> --%>
+  <%!--   <.link navigate={~p"/ai-thoughts-and-fears"}>AI Thoughts and Fears</.link> --%>
+  <%!--   - <time datetime="2025-02-25">Feburary 2025</time> --%>
+  <%!-- </li> --%>
   <li>
     <.link navigate={~p"/why-two-awaits"}>Why Two Awaits?</.link>
     - <time datetime="2024-07-01">July 2024</time>
@@ -95,6 +109,7 @@
 
 <%= if @quote_chars != [] do %>
   <div class={["mt-5", if(@fade_in, do: "fade-in", else: "")]}>
-    {Enum.join(@quote_chars, "")}
+    <h2>{@quote_header}</h2>
+    <p>{Enum.join(@quote_chars, "")}</p>
   </div>
 <% end %>
