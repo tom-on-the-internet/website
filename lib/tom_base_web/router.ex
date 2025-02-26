@@ -28,8 +28,6 @@ defmodule TomBaseWeb.Router do
 
     live "/", Home
     live "/about", About
-    live "/projects", Projects
-    live "/sandbox", Sandbox
     live "/guestquarium", Guestquarium
     # blog
     live "/why-two-awaits", WhyTwoAwaits
