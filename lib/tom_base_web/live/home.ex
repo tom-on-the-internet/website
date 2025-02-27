@@ -36,7 +36,7 @@ defmodule TomBaseWeb.Home do
   def handle_info({:show_qotd, [char | rest]}, socket) do
     updated_chars = socket.assigns.quote_chars ++ [char]
 
-    delay = :rand.uniform(60) + 30
+    delay = :rand.uniform(40) + 20
 
     delay =
       if char in [".", "!", "?"] and rest != [] and hd(rest) != "." do
@@ -84,6 +84,11 @@ defmodule TomBaseWeb.Home do
         header: "Hacking time",
         body:
           ~s(<script>console.log('shh, I'm trying to hack this site.'\);alert('hacked!!'\);</script> . . . . . . Huh. It didn't work.)
+      },
+      %{
+        header: "I was just thinking...",
+        body:
+          ~s(Right now, when you go out into nature, you're pretty removed from technology. Except for whatever your bring, of course. But sooner than later, that won't be the case. Just like it used to be the case that there was very little "tech" in your grocery store, but now the grocery store is full of tech. Ok, so, what technology might you see in nature? I don't know. Maybe a tree that records animals. You could ask the tree to show you animals that have been in the area recently. Or maybe a bush that can protect you from bears. Those are both dumb ideas. But something is coming, I'm sure.)
       }
     ]
 
